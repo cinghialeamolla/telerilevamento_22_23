@@ -7,70 +7,84 @@ library(raster) #per richiamare la libreria raster
  setwd("C:/lab/") # Windows
 # setwd("/Userbs/name/Desktop/lab/") # Mac 
 
-l2011 <- brick("p224r63_2011.grd") #per importare un blocco di dati e associarlo a un nome
+l2011 <- brick("p224r63_2011.grd") #per importare un blocco di dati (immagine satellitare) e associarlo a un nome
 l2011 #per visualizzare le informazioni
 
-plot(l2011) #per plottare l'immagine
+plot(l2011) #per plottare l'immagine con le singole bande
 
 cl <- colorRampPalette(c("black","grey","light grey")) (100)   #https://www.r-graph-gallery.com/42-colors-names.html per scegliere i colori
 plot(l2011, col=cl) #plot dell'immagine con i colori scelti da noi
 
+dev.off() #per chiudere le finestre con le immagini
+
 #### DAY 2
 
-# colour change -> new
-cl <- colorRampPalette(c("blue","green","grey","red","magenta","yellow")) (100) 
-plot(l2011, col=cl)
-
-cls <- colorRampPalette(c("red","pink","orange","purple")) (200)
-plot(l2011, col=cls)                       
-
-#### DAY 3
-# Bande Landsat
+# Bande Landsat ETM+
 # B1: blu
 # B2: verde
 # B3: rosso
-# B4: infrarosso vicino
+# B4: infrarosso vicino NIR
 # B5: infrarosso medio
 # B6: infrarosso termico
 # B7: infrarosso medio
 
-# dev.off will clean the current graph
-# dev.off()
+#per plottare una singola banda (in questo caso il blu - B1_sre)
+plot(l2011$B1_sre) #nome banda
+plot(l2011[[1]])   #elemento
 
-cls <- colorRampPalette(c("red","pink","orange","purple")) (200)
-plot(p224r63_2011$B1_sre, col=cls)
+cl <- colorRampPalette(c("black","grey","light grey")) (100)
+plot(l2011$B1_sre, col=cl) #banda blu con scelta legenda colori
 
-# dev.off()
+#plot B1 con legenda in gradazione di blu
+clb <- colorRampPalette(c("dark blue","blue","light blue")) (100)
+plot(l2011$B1_sre, col=clb)
 
-plot(l2011$B1_sre)
-plot(l2011_2011$B2_sre)
+#esportare le immagini in un pdf nella cartella lab (magia)
+pdf("banda1.pdf") #apre il pdf
+plot(l2011$B1_sre, col=clb) #contenuto del pdf
+dev.off() #chiude la finestra appena aperta
 
-# 1 row, 2 columns
+#esportare l'immagine come file png nella cartella lab (magia)
+png("banda1.png") #apre il png
+plot(l2011$B1_sre, col=clb) #contenuto del png
+dev.off() #chiude la finestra appena aperta
+
+#per plottare la singola banda del verde - B2_sre
+clg <- colorRampPalette(c("dark green","green","light green")) (100)
+plot(l2011$B2_sre, col=clg) #nome banda
+
+#Per creare un "multi Frame"
+
+# 1 row (riga), 2 columns (colonne)
 par(mfrow=c(1,2))
-plot(p224r63_2011$B1_sre)
-plot(p224r63_2011$B2_sre)
+plot(l2011$B1_sre, col=clb)
+plot(l2011$B2_sre, col=clg)
 
-# 2 row, 1 columns
+# 2 row (righe), 1 columns (colonna)
 par(mfrow=c(2,1)) # if you are using columns first: par(mfcol....)
-plot(p224r63_2011$B1_sre)
-plot(p224r63_2011$B2_sre)
+plot(l2011$B1_sre, col=clb)
+plot(l2011$B2_sre, col=clg)
 
-# plot the first four bands of Landsat
+# plot con 4 riquadri
 par(mfrow=c(4,1))
-plot(p224r63_2011$B1_sre)
-plot(p224r63_2011$B2_sre)
-plot(p224r63_2011$B3_sre)
-plot(p224r63_2011$B4_sre)
+# blu
+plot(l2011$B1_sre, col=clb)
+# verde
+plot(l2011$B2_sre, col=clg)
+# rosso
+clr <- colorRampPalette(c("dark red","red","pink")) (100)
+plot(l2011$B3_sre, col=clr)
+# vicino infrarosso
+clnir <- colorRampPalette(c("red","orange","yellow")) (100)
+plot(l2011$B4_sre, col=clnir)
 
-# a quadrat of bands...:
+# un quadrato di bande
 par(mfrow=c(2,2))
-plot(p224r63_2011$B1_sre)
-plot(p224r63_2011$B2_sre)
-plot(p224r63_2011$B3_sre)
-plot(p224r63_2011$B4_sre)
+plot(l2011$B1_sre, col=clb)
+plot(l2011$B2_sre, col=clg)
+plot(l2011$B3_sre, col=clr)
+plot(l2011$B4_sre, col=clnir)
 
-# a quadrat of bands...:
-par(mfrow=c(2,2))
 
 clb <- colorRampPalette(c("dark blue","blue","light blue")) (100)
 plot(p224r63_2011$B1_sre, col=clb)
@@ -86,7 +100,7 @@ plot(p224r63_2011$B4_sre, col=clnir)
 
 
 
-#DAY4
+### DAY 3
 plot(l2011$B1_sre)
 plot(l2011[[4]])
 
@@ -107,7 +121,6 @@ plotRGB(l2011, r=3, g=4, b=2, stretch="hist")
 
 #caricare immagine del 1988
 l1988<-brick("p224r63_1988.grd")
-
 
 par(mfrow=c(2,1))
 plotRGB(l1988, r=4, g=3, b=2, stretch="Lin")
