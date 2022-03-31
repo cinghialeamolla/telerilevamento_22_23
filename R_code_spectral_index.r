@@ -4,6 +4,9 @@ library(RStoolbox) #richiamare libreria RStoolbox
 setwd("C:/lab/") # Windows
 # setwd("/Users/name/Desktop/lab/") # Mac
 
+#install.packages("rasterdiv")
+library(rasterdiv) #richiamare libreria rasterdiv
+
 #importare defor1 e dargli un nome
 l1992 <- brick("defor1_.jpg")
 plotRGB(l1992, r=1, g=2, b=3, stretch="lin")
@@ -48,11 +51,11 @@ plot(dvi_dif, col=cld)
 
 #l'NDVI può essere usato anche per confrontare immagini con diversa risoluzione radiometrica
 
-#NDVI 1992
+# 1992
 dvi1992 = l1992[[1]] - l1992[[2]]
 ndvi1992 = (dvi1992) / (l1992[[1]] + l1992[[2]])
 
-#NDVI 2006
+# 2006
 dvi2006 = l2006[[1]] - l2006[[2]]
 ndvi2006 = (dvi2006) / (l2006[[1]] + l2006[[2]])
 
@@ -61,6 +64,27 @@ plot(ndvi1992, col=cl)
 plot(ndvi2006, col=cl)
 
 #Multiframe con plot RGB dell'immagine sopra e l'NDVI sotto
+par(mfrow=c(2,1))
+plotRGB(l1992, r=1, g=2, b=3, stretch="lin")
+plot(ndvi1992, col=cl)
 
+par(mfrow=c(2,1))
+plotRGB(l2006, r=1, g=2, b=3, stretch="lin")
+plot(ndvi2006, col=cl)
+
+par(mfrow=c(2,1))
+plot(ndvi1992, col=cl)
+plot(ndvi2006, col=cl)
+
+# RStoolbox::spectralIndices
+si1992 <- spectralIndices(l1992, green = 3, red = 2, nir = 1)
+plot(si1992, col=cl)
+
+si2006 <- spectralIndices(l2006, green = 3, red = 2, nir = 1)
+plot(si2006, col=cl)
+
+### rasterdiv
+plot(copNDVI) #raster a 8 bit che rappresenta la media dell'NDVI globale dal 1999 al 2017 
+#maggiore è l'NDVI e maggiore è la copertura vegetale in salute
 
 
