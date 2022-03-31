@@ -37,3 +37,30 @@ dvi_dif = dvi1992 - dvi2006
 cld <- colorRampPalette(c('blue','white','red'))(100) 
 plot(dvi_dif, col=cld)
 # i valori rossi hanno la differenza di dvi più alta = fortissima deforestazione
+
+# DAY 2
+
+# Range DVI (8 bit): -255 a 255
+# Range NDVI (8 bit): -1 a 1
+
+# Range DVI (16 bit): -65535 a 65535
+# Range NDVI (16 bit): -1 a 1
+
+#l'NDVI può essere usato anche per confrontare immagini con diversa risoluzione radiometrica
+
+#NDVI 1992
+dvi1992 = l1992[[1]] - l1992[[2]]
+ndvi1992 = (dvi1992) / (l1992[[1]] + l1992[[2]])
+
+#NDVI 2006
+dvi2006 = l2006[[1]] - l2006[[2]]
+ndvi2006 = (dvi2006) / (l2006[[1]] + l2006[[2]])
+
+cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100)
+plot(ndvi1992, col=cl)
+plot(ndvi2006, col=cl)
+
+#Multiframe con plot RGB dell'immagine sopra e l'NDVI sotto
+
+
+
