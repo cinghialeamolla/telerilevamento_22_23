@@ -30,4 +30,22 @@ plot(lst2015, col=cl)
 rlist <- list.files(pattern="lst") #il pattern è qualcosa che tutti i file della lista da creare hanno in comune
 rlist 
 # questa funzione applica una stessa funzione a tutti i file della lista
+import <- lapply(rlist, raster) #importare i 4 file
+import
+#questa funzione crea un blocco comune di tutti i dati
+tgr <- stack(import)
+
+plot(tgr, col=cl) #crea il plot multiframe, ma è molto più rapido
+plot(tgr[[1]], col=cl) #per plottare un singolo elemento dello stack
+
+plotRGB(tgr, r=1, g=2, b=3, stretch="lin")
+
+
+
+
+
+
+
+
+
 
