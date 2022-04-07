@@ -61,6 +61,23 @@ plot(en13, col=cl)
 rlist <- list.files(pattern="EN") #crea una lista di file
 rimp <- lapply(rlist, raster) #applica ai file in lista la funzione raster
 en <- stack(rimp) #crea un blocco comune dei file in lista importati con raster
+plot(en, col=cl)
+
+#Esercizio: plot immagine gennaio accanto a quella di marzo
+par(mfrow=c(1,2))
+plot(en[[1]], col=cl) #plot immagine di gennaio
+plot(en[[13]], col=cl) #plot immagine di marzo
+#oppure
+en113 <- stack(en[[1]], en[[13]])  #creo uno stack con i due elementi che mi interessano; è più "sopraffino"
+plot(en113, col=cl)
+
+# differenza dei valori tra la prima immagine (gennaio) e l'ultima (marzo)
+difen <- en[[1]] - en[[13]]
+cldif <- colorRampPalette(c('blue','white','red'))(100) # 
+plot(difen, col=cldif) #plotta la differenza ottenuta con la funzione sopra
+
+
+
 
 
 
