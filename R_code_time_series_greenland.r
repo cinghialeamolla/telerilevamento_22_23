@@ -40,12 +40,27 @@ plot(tgr[[1]], col=cl) #per plottare un singolo elemento dello stack
 
 plotRGB(tgr, r=1, g=2, b=3, stretch="lin")
 
+########################################################
+### Esempio n°2: Decremento NO2 nel periodo di lockdown
+########################################################
+library(raster)
+# setwd("~/lab/en") # Linux
+setwd("C:/lab/en") # Windows
+# setwd("/Users/name/Desktop/lab/en") # Mac 
 
+en01 <- raster("EN_0001.png") #importa la I banda per il primo set
 
+cl <- colorRampPalette(c('red','orange','yellow'))(100)
+plot(en01, col=cl)
 
+en13 <- raster("EN_0013.png") #importa la I banda per l'ultimo set
+plot(en13, col=cl)
 
-
-
+# importare l'intero dataset insieme
+# esercizio: list.file, lapply, stack
+rlist <- list.files(pattern="EN") #crea una lista di file
+rimp <- lapply(rlist, raster) #applica ai file in lista la funzione raster
+en <- stack(rimp) #crea un blocco comune dei file in lista importati con raster
 
 
 
