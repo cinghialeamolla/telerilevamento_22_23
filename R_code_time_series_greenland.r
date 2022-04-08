@@ -76,8 +76,24 @@ difen <- en[[1]] - en[[13]]
 cldif <- colorRampPalette(c('blue','white','red'))(100) # 
 plot(difen, col=cldif) #plotta la differenza ottenuta con la funzione sopra
 
+#### Terzo giorno:
 
+# setwd("~/lab/") # Linux
+setwd("C:/lab/") # Windows
+# setwd("/Users/name/Desktop/lab/")
 
+#esercizio: usare la funzione "source" per caricare codice da un file
+source("r_inputcode.rtf") #NON FUNZIONA
 
+library(raster)
+setwd("C:/lab/en") # Windows
+
+rlist <- list.files(pattern="EN") #crea una lista di file
+rimp <- lapply(rlist, raster) #applica ai file in lista la funzione raster
+en <- stack(rimp) #crea un blocco comune dei file in lista importati con raster
+plot(en) #plotta tutte le immagini insieme
+
+plotRGB(en, r=1, g=7, b=13, stretch="lin") #plot rgb dello stack di file
+plotRGB(en, r=1, g=7, b=13, stretch="hist")
 
 
