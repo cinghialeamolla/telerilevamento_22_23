@@ -21,5 +21,5 @@ soc  #la funzione sopra crea un modello con unico output una mappa: classificazi
 cl <- colorRampPalette(c('yellow','black','red'))(100) #palette con 3 classe
 plot(soc$map, col=cl) #plot della mappa appena creata con 3 classi
 
-
+# set.seed può essere usato per ripetere un esperimento
 
