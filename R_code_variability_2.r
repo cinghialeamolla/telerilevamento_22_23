@@ -67,9 +67,22 @@ im3 <- ggplot() +
 geom_raster(sd3, mapping=aes(x=x, y=y, fill=layer)) +
 scale_fill_viridis(option="inferno")  # Deviazione Standard sulla legenda inferno di viridis
 
-im1 + im2 + im3
+im1 + im2 + im3  #unisce le immagini con patchwork
 
+### Calcolo dell'eterogeneità con una finestra mobile 5x5
+sd5 <- focal(pc1, matrix(1/25, 5, 5), fun=sd)
 
+ggplot() +
+geom_raster(sd5, mapping=aes(x=x, y=y, fill=layer)) +
+scale_fill_viridis(option="inferno")
+
+im3 + im4  #plotta le deviazioni standard calcolate con una finestra 3x3 e una 5x5 (con una variabilità maggiore)
+
+### Calcolo eterogeneità con una finestra 7x7
+sd7 <- focal(pc1, matrix(1/49, 7, 7), fun=sd)
  
-
-
+im5 <- ggplot() +
+geom_raster(sd7, mapping=aes(x=x, y=y, fill=layer)) +
+scale_fill_viridis(option="inferno")
+ 
+im3 + im4 + im5  #3x3, 5x5, e 7x7 
