@@ -55,4 +55,9 @@ scale_fill_viridis() +
 ggtitle("CHM difference San Genesio/Jenesien")
 #nelle aree + scure, blu, (+ basse) le piante sono state tagliate; nelle aree + gialle, chiare (+ alte), le piante sono cresciute dal 2004 al 2014; nel prato non è cambiato nulla; c'è una leggera differenza per il ricampionamento sulle case, ma non è reale
 
+#per visualizzare la nube di punti
+# install.packages("lidR")
+library(lidR)
+point_cloud <- readLAS("point_cloud.laz")
+plot(point_cloud) #restituisce il 3D dell'area
 
