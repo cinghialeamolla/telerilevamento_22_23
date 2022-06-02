@@ -15,13 +15,20 @@
 
 
 
-\documenclass{article}
-% è la classe utilizzata (come raster, dataframe, matrix, ecc), che indica il tipo di documento da fare {article = articolo}
+\documenclass[a4paper,12pt]{article}
+% è la classe utilizzata (come raster, dataframe, matrix, ecc), che indica il tipo di documento da fare
+% [struttura del testo: foglio A4, dimensione carattere 12]
+% {article = articolo}
 
 \usepackage[utf8]{inputenc}
 % è la funzione per caricare i pacchetti (come "library" in R)
 % [definisce delle strutture - "utf8" sono tutti i tipi di carattere usabili in "inputenc"] 
 % {definisce accenti e lettere particolari}
+
+\usepackage{graphicx} % pacchetto per parti grafiche
+
+\usepackage{color}
+% può cambiare il colore del testo
 
 \title{My first document in LaTeX}
 % indica il titolo del documento
@@ -39,11 +46,19 @@
 \maketitle
 % questa funzione pesca titolo e autore (definiti esternamente, sopra) e li carica
 
+% abstract
+% keywords
+% double line
+
 \section{Introduction}
-% indicano le "sezioni" %qui si introduce il "problema"; alla fine della sezione va esplicitato lo scopo del documento
+% indicano le "sezioni"
+%qui si introduce il "problema"; alla fine della sezione va esplicitato lo scopo del documento
 
 % esempio di introduzione
-Since the 1920s, aerial photography has represented an important data source for the detection of landscape patterns and their change over time.
+%\textcolor{red}{aerial photography} -> cambia il colore della parte di testo tra parentesi
+% \newcommand{\tr}{\textcolor{red}}  -> associa il nome "tr" alla funzione \textcolor{red}, che può essere poi usata nel testo; se commentato, automaticamente torna nero tutto il testo dopo "tr"
+
+Since the 1920s, \textcolor{red}{aerial photography} has represented an \tr{important data} source for the detection of landscape patterns and their change over time.
 %inserendo a fine riga due \\ e andando a capo si crea uno spazio tra le due frasi _ oppure utilizzare la funzione \smallskip (che lascia uno spazio più corto) o \bigskip (che lo lascia più ampio)
 
 %andando a capo e lasciando uno spazio, LaTeX andrà a capo con un'indentazione; altrimenti usare la funzione \noindent davanti
@@ -52,6 +67,8 @@ Multitemporal analysis represents a powerful method for the study of all ecologi
 %subsection
 
 \section{Study area}
+
+The study area is the nature reserve of Poggio all’Olmo in Tuscany, Italy (11 28 26E, 42 51 45N, WGS84 Datum). It is located on the side of Mt. Amiata, comprising 440 ha, with elevations ranging from 650 to 1016 m above mean sea level (m.s.l.) and slopes from 0 to 55.
 
 \section{Methods}
 % si descrivono tutti i metodi utilizzati per realizzare il lavoro
