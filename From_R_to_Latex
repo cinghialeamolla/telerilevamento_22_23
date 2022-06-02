@@ -1,0 +1,16 @@
+% Da R a Latex
+
+% R -> funzione(argom1, argom2, ...)
+% #commento 
+
+% Latex -> \funzione[struttura dell'argomento(non sempre presente)]{argomento}
+% %commento
+% Funzioni:
+
+\documenclass{article}
+% è la classe utilizzata (come raster, dataframe, matrix, ecc), che indica il tipo di documento da fare {article = articolo}
+
+\usepackage[]{inputenc}
+% è la funzione per caricare i pacchetti (come "library" in R)
+% [definisce delle strutture - "utf8" sono tutti i tipi di carattere usabili in "inputenc"] 
+% {definisce accenti e lettere particolari}
