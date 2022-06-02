@@ -5,12 +5,71 @@
 
 % Latex -> \funzione[struttura dell'argomento(non sempre presente)]{argomento}
 % %commento
-% Funzioni:
+
+
+
+
+
+%%%  CODICE LATEX
+
+
+
 
 \documenclass{article}
 % è la classe utilizzata (come raster, dataframe, matrix, ecc), che indica il tipo di documento da fare {article = articolo}
 
-\usepackage[]{inputenc}
+\usepackage[utf8]{inputenc}
 % è la funzione per caricare i pacchetti (come "library" in R)
 % [definisce delle strutture - "utf8" sono tutti i tipi di carattere usabili in "inputenc"] 
 % {definisce accenti e lettere particolari}
+
+\title{My first document in LaTeX}
+% indica il titolo del documento
+
+\author{Pamela Sbardella}
+% indica l'autore del documento
+
+\date{}
+% si può scrivere manualmente [May 2022], lasciare le parentesi vuote e farla scomparire, o metterla come commento (% \date{}) per farla prendere in automatico dal pc dall'ultima ricompilazione
+
+\begin{document}
+% è la funzione che fa iniziare qualcosa (alla fine deve esserci sempre una funzione "end)
+% qui sotto si definisce tutto quello che sarà all'interno del documento
+
+\maketitle
+% questa funzione pesca titolo e autore (definiti esternamente, sopra) e li carica
+
+\section{Introduction}
+% indicano le "sezioni" %qui si introduce il "problema"; alla fine della sezione va esplicitato lo scopo del documento
+
+% esempio di introduzione
+Since the 1920s, aerial photography has represented an important data source for the detection of landscape patterns and their change over time.
+%inserendo a fine riga due \\ e andando a capo si crea uno spazio tra le due frasi _ oppure utilizzare la funzione \smallskip (che lascia uno spazio più corto) o \bigskip (che lo lascia più ampio)
+
+%andando a capo e lasciando uno spazio, LaTeX andrà a capo con un'indentazione; altrimenti usare la funzione \noindent davanti
+Multitemporal analysis represents a powerful method for the study of all ecological and geological processes that change over time. The literature involves several fields of study: from soil loss to natural resources assessment to vegetation and ecological dynamics.
+
+%subsection
+
+\section{Study area}
+
+\section{Methods}
+% si descrivono tutti i metodi utilizzati per realizzare il lavoro
+
+\section{Results}
+% si inseriscono tutti i risultati ottenuti in uscita (tabelle, figure, ecc)
+
+\section{Discussion}
+% si discutono tutti i risultati, alla luce dei risultati di altri scienziati a livello mondiale
+
+\section{Conclusion}
+% conclusione finale
+
+\section{References}
+% citazioni/bibliografia
+
+
+
+
+\end{document}
+% indica la fine di quello che era iniziato con la funzione "begin"
