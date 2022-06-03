@@ -91,7 +91,7 @@ map_single(m2_distill,pal2,lambda_i = -10)
 #creazione legenda
 legend_timeline(pal2,time_labels = c("2 aprile", "11 aprile"))
 
-
+# Per controllare il codice: https://github.com/Ludovico-Chieffallo/Lessons
 
 
 
