@@ -1,0 +1,102 @@
+#Presentazioni con LaTeX
+
+\documentclass{beamer} 
+% parte di latex che crea le presentazioni
+\usepackage{listings}
+%
+\usepackage{color} 
+%per definire tutti i colori
+
+% Temi per presentazioni https://mpetroff.net/files/beamer-theme-matrix/
+% Righe = strutture
+% Colonne = colori
+
+\usetheme{Berkeley} % Frankfurt, Madrid
+%  Struttura tema
+\usecolortheme{spruce} %dove, crane
+%  Colore tema
+
+\title{La mia prima presentazione}
+\author{Pamela Sbardella}
+
+\begin{document}
+\maketitle
+
+%crea una slide automatica (outline) prima di ogni sezione
+\AtBeginSection[] % Do nothing for \section*
+{	
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents[currentsection,currentsubsection,currentsubsubsection]
+\end{frame}
+}
+
+
+
+\section{Introduzione}
+
+\begin{frame}
+\frametitle{My first slide!}
+\begin{itemize}  % per creare un elenco
+\item Mars' surface is covered with \textbf{craters} that formed when comets and/or asteroids impacted the red planet.  %\textbf{craters} per parole in grassetto
+\item Mars' surface is covered with craters that formed when comets and/or asteroids impacted the red planet.
+\item \pause These craters are especially numerous in the\textbf{southern highlands} of Mars   %\pause fa partire la scritta in ritardo (animazione)
+\end{itemize} 
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Instruments used}
+\centering
+% \includegraphics[width=0.5\textwidth]{logo_unibo.png}
+\includegraphics[width=0.7\textwidth]{cinghiale.jpg}  %devi prima caricare l'immagine su overleaf
+\end{frame}
+
+
+
+\section{Metodi}
+
+\begin{frame}
+\frametitle{Instruments used}
+\centering
+% \includegraphics[width=0.5\textwidth]{logo_unibo.png}
+\includegraphics[width=0.7\textwidth]{dream.jpg}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{The used formula}
+\centering
+\includegraphics[width=0.3\textwidth]{dream.jpg}\\
+\begin{equation}
+e^{i \pi} + 1 = 0
+\end{equation}
+\end{frame}
+
+
+
+\section{Risultati}
+
+\begin{frame}
+\frametitle{Instruments used}
+\centering
+% slide con 2 immagini vicine
+\includegraphics[width=0.4\textwidth]{cinghiale.jpg} 
+\includegraphics[width=0.4\textwidth]{dream.jpg}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Instruments used}
+\centering
+% slide con 4 immagini vicine
+\includegraphics[width=0.4\textwidth]{cinghiale.jpg} 
+\includegraphics[width=0.4\textwidth]{dream.jpg} \\ %va a capo
+\bigskip %(aumenta lo spazio a capo) oppure \smallskip
+\includegraphics[width=0.4\textwidth]{cinghiale.jpg} 
+\includegraphics[width=0.4\textwidth]{dream.jpg}
+\end{frame}
+
+
+\end{document}
