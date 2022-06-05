@@ -5,8 +5,8 @@
 
 % Latex -> \funzione[struttura dell'argomento(non sempre presente)]{argomento}
 % %commento
-
-
+%   \%  %il \ davanti alla percentuale la "protegge" e la mantiene, anzichè inserire un commento
+% \newpage funzione che porta a capo il testo
 
 
 
@@ -30,6 +30,20 @@
 \usepackage{color}
 % può cambiare il colore del testo
 
+\usepackage{hyperref}
+% per fare i collegamenti link con le figure di riferimento (con la funzione ref); per figure e bibliografia
+
+%\usepackage{lineno}
+% inserisce i numeri di riga (per articoli scientifici)
+%\linenumbers %funzione sul pacchetto lineno
+
+\usepackage{listings}
+% serve per inserire parti di codice
+
+\usepackage{natbib}
+%per inserire la bibliografia
+
+
 \title{My first document in LaTeX}
 % indica il titolo del documento
 
@@ -46,7 +60,17 @@
 \maketitle
 % questa funzione pesca titolo e autore (definiti esternamente, sopra) e li carica
 
+\tableofcontents  % inserisce un indice
+
 % abstract
+\begin{abstract}
+Here is the abstract of my Master Thesis.
+
+The Master Thesis is dealing with something.
+
+Concluding, I made beautiful science.
+\end{abstract}
+
 % keywords
 % double line
 
@@ -68,13 +92,66 @@ Multitemporal analysis represents a powerful method for the study of all ecologi
 
 \section{Study area}
 
-The study area is the nature reserve of Poggio all’Olmo in Tuscany, Italy (11 28 26E, 42 51 45N, WGS84 Datum). It is located on the side of Mt. Amiata, comprising 440 ha, with elevations ranging from 650 to 1016 m above mean sea level (m.s.l.) and slopes from 0 to 55.
+The study area is the nature reserve of Poggio all’Olmo in Tuscany (Figure \ref{fig:cinghiale}), Italy (11 28 26E, 42 51 45N, WGS84 Datum). It is located on the side of Mt. Amiata, comprising 440 ha, with elevations ranging from 650 to 1016 m above mean sea level (m.s.l.) and slopes from 0 to 55.
+
+
+%per caricare un'immagine bisogna salvarla sul pc, caricarla su overleaf e poi inserire il codice seguente:
+\begin{figure}
+\centering  % per centrare l'immagine
+\includegraphics[width=0.4\textwidth]{cinghiale.jpg}  % funzione per inserire la figura; width indica la dimensione (0.4 volte la dimensione del testo)
+\caption{This is my guide animal.}  % didascalia immagine
+\label{fig:cinghiale}   % da un'etichetta alla figura, che la richiama con la funzione "ref" inserita sopra nel testo
+\end{figure}
+
 
 \section{Methods}
 % si descrivono tutti i metodi utilizzati per realizzare il lavoro
 
+In this section I am going to describe the methods of this manuscript. First of all I will strat with the formulas used and then I will pass to the code!
+ 
+\subsection{Formulas}  % inserisce una sottosezione
+Here is the formula used in this manuscript:
+
+
+\begin{equation}   % per inserire una formula matematica  (https://en.m.wikibooks.org/wiki/LaTeX/Mathematics)
+ F = G \times \frac{m_{1} \times m_{2}}{d^{2}}
+\label{eq:newton}
+\end{equation}
+
+Let's make a more complex equation
+
+\begin{equation}
+ F = \sqrt[3]{G \times \frac{m_{1} \times m_{2}}{d^{2}}}
+\label{eq:galileo2}
+\end{equation}
+ 
+\begin{equation}
+F = \frac{\sqrt[3]{G \times \frac{m_{1} \times m_{2}}{d^{2}}}}{\sum{p(x) \times \log{p(x)}}}
+\label{eq:galileo3}
+\end{equation}
+
+\begin{equation}
+F = G \times \frac{m_{1} \times m_{2}}{d^{2 \times \mu}}  %per inserire una lettera greca
+\label{eq:newton2}
+\end{equation}
+
+% alpha= biodiversità locale (in un punto preciso); beta= b tra un punto e un altro; gamma=b totale
+% lambda= simbolo lunghezze d'onda (rosso, infrarosso, ecc)
+ 
+\subsection{Code}
+Here is the code used in this manuscript:
+% per inserire del codice serve il pacchetto "listing" e bisogna caricare il codice su un file di testo, su overleaf, con la seguente formula [qui va il tipo di linguaggio usato]
+\lstinputlisting[language=R]{R_code.r.txt}  % txt va bene (blocco note), rtf no.
+
+
+
 \section{Results}
 % si inseriscono tutti i risultati ottenuti in uscita (tabelle, figure, ecc)
+
+As a result of this study I found that the Cadmium is present in the analyzed soil with a total amount of 15\%.
+Let's put a formula directly in the main text. We can apply this: $F=G \times m_{1}$. These results were achieved according to Equation \ref{eq:newton}.
+
+
 
 \section{Discussion}
 % si discutono tutti i risultati, alla luce dei risultati di altri scienziati a livello mondiale
