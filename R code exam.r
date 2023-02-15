@@ -12,6 +12,8 @@ library(raster)
 library(ggplot2) #
 library(RStoolbox) #
 library(rasterVis) #
+library(patchwork)
+library(gridExtra) #
 
 # "setwd" si usa per il settaggio della cartella di lavoro 
 # setwd("~/lab/") # Linux
@@ -61,10 +63,8 @@ plot(diflst, col=cldif, main="Differenza LST tra 2017 e 2020") # plotta la diffe
 
 #dev.off()
 
-# ho scaricato alcune coppie di immagini inerenti la perdita di ghiaccio e neve in alcune aree della Groenlandia, nelle Isole Svalbard e sull'Himalaya
-# Fonte dati: https://earthobservatory.nasa.gov/topic/remote-sensing
-
-## caso 1: Nord-Ovest Gronlandia, penisola a nord della Base aerea di Thule (Pituffik)
+# ho scaricato una coppia di immagini inerenti la perdita di ghiaccio e neve in un'area nella penisola a nord della Base aerea di Thule (Pituffik), Nord-Ovest della Gronlandia,
+# Fonte dati:  https://earthobservatory.nasa.gov/images/150267/a-half-century-of-loss-in-northwest-greenland
 
 # importare i dataset
 gren_1973 <- brick("greenland_1973_lrg.jpg") # immagine catturata da Landsat 1, il 3 settembre 1973
@@ -106,41 +106,69 @@ levelplot(grenland_1,col.regions=clg,main="Perdita di ghiaccio nel nord-ovest de
 
 #dev.off()
 
-#sottrazione tra il primo dato e il secondo
-melting <- grenland_1$greenland_2022_lrg.jpg - grenland_1$greenland_1973_lrg.jpg   # "grenland_1$" lega i singoli file alla loro posizione nello stack
+#multiframe con ggplot2
+g1973 <- ggRGB(gren_1973, r=1, g=2, b=3, stretch="lin") #plot RGB che usa ggplot2
+g2022 <- ggRGB(gren_2022, r=1, g=2, b=3, stretch="lin") #plot RGB che usa ggplot2
+g1973 / g2022 #per visualizzare le immagini in multiframe, con patchwork
 
-#plotto l'immagine con la differenza
-clm <- colorRampPalette(c("blue","white","red"))(100) #assegno una scala di colori ai file
+dev.off()
 
-levelplot(melt_amount,col.regions=clb)
+# classificazione immagine del 1973
+clasl973 <- unsuperClass(gren_1973, nClasses=2)  # associazione della classificazione dell'immagine del 1972 a un nome
+clasl973 # per visualizzare info sulla classificazione
+plot(clasl973$map) # per visualizzare la mappa riferita al modello
+# classe 1: ghiaccio
+# classe 2: acqua + superficie terrestre non coperta da ghiaccio
+
+# classificazione immagine del 2022
+clas2022 <- unsuperClass(gren_2022, nClasses=2)  #associazione della classificazione dell'immagine del 2022 a un nome
+clas2022 #per visualizzare info sulla classificazione
+plot(clas2022$map) #per visualizzare la mappa riferita al modello
+# classe 1: ghiaccio
+# classe 2: acqua + superficie terrestre non coperta da ghiaccio
+
+# generare tabelle di frequenza dei pixel delle due classi per la mappa del 1973
+freq(clasl973$map)
+# value  count
+# Classe 1 2962927 pixel (ghiaccio)
+# Classe 2 2092234 pixel (acqua + superficie terrestre non coperta da ghiaccio)
+
+# generare tabelle di frequenza dei pixel delle due classi per la mappa del 2022
+freq(clas2022$map)
+# value  count
+# Classe 1 2734537 pixel (ghiaccio)
+# Classe 2 2320624 pixel (acqua + superficie terrestre non coperta da ghiaccio)
 
 
+#sommo i valori totali delle classi (1993)
+s1 <- 2962927 + 2092234
+#questa funzione calcola la proporzione delle due classi per l'immagine del 1993
+prop1 <- freq(clasl973$map) / s1
+prop1
+# Prop. ghiaccio: 0.5861192
+# Prop. NON ghiaccio: 0.4138808
+
+#proporzioni nella seconda mappa (2022)
+s2 <- 2734537 + 2320624 
+prop2 <- freq(clas2022$map) / s2
+prop2
+# Prop. ghiaccio: 0.5409396
+# Prop. area NON ghiaccio: 0.4590604
 
 
+#creare un dataset
+#colonne
+copertura <- c("Ghiaccio","NON Ghiaccio") #prima colonna
+percentuale_1973 <- c(58.61,41.39) # 
+percentuale_2022 <- c(54.09,45.91) # 
+#tabella
+percentuali <- data.frame(copertura, percentuale_1973, percentuale_2022)
+percentuali
+#plot del grafico  del 1973
+p1<-ggplot(percentuali, aes(x=copertura, y=percentuale_1973, color=copertura)) + geom_bar(stat="identity", fill="white")
+#plot del grafico  del 2022
+p2<-ggplot(percentuali, aes(x=copertura, y=percentuale_2022, color=copertura)) + geom_bar(stat="identity", fill="white")
+#arrangiare i due grafici in una pagina
+grid.arrange(p1, p2, nrow=2)
 
-
-
-
-
-
-# caso x: regione del fiordo di Hornsund nelle Svalbard
-
-#importare i dataset
-sval_1990 <- brick("svalbard_1990.jpg") #immagine catturata da Landsat 5, il 20 agosto 1990
-sval_1990 #per visualizzare il dataset
-# le bande sono 3: svalbard_1990_1, svalbard_1990_2, svalbard_1990_3
-
-#
-sval_2017 <- brick("svalbard_2017.jpg") #immagine catturata da Landsat 8, il 19 agosto 2017
-sval_2017 #per visualizzare il dataset
-# le bande sono 3: svalbard_2017_1, svalbard_2017_2, svalbard_2017_3 
-
-par(mfrow=c(1,2))
-plotRGB(sval_1990, r=1, g=2, b=3, stretch="hist")
-plotRGB(sval_2017, r=1, g=2, b=3, stretch="hist")
-
-# differenza dei valori tra la prima immagine (gennaio) e l'ultima (marzo)
-difsval <- sval_1990 - sval_2017
-clsval <- colorRampPalette(c('blue','white','red'))(100) # 
-plot(difsval, col=clsval) #plotta la differenza ottenuta con la funzione sopra
 
