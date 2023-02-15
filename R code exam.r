@@ -6,19 +6,12 @@
 # la funzione sottostante si usa per istallare dei pacchetti esterni a R, dal CRAN.
 # install.packages("ncdf4") # https://cran.r-project.org/web/packages/ncdf4/index.html
 
-# sp è un pacchetto per i dati spaziali
-# install.packages("sp") # http://cran.nexr.com/web/packages/sp/index.html
-
-#install.packages("ggplot2")
-#install.packages("gridExtra")
-
-
-
 # Queste funzioni richiamano i pacchetti usati per le analisi
 library(ncdf4)
 library(raster)
-library(ggplot2)
-library(gridExtra) 
+library(ggplot2) #
+library(RStoolbox) #
+library(rasterVis) #
 
 # "setwd" si usa per il settaggio della cartella di lavoro 
 # setwd("~/lab/") # Linux
@@ -71,7 +64,66 @@ plot(diflst, col=cldif, main="Differenza LST tra 2017 e 2020") # plotta la diffe
 # ho scaricato alcune coppie di immagini inerenti la perdita di ghiaccio e neve in alcune aree della Groenlandia, nelle Isole Svalbard e sull'Himalaya
 # Fonte dati: https://earthobservatory.nasa.gov/topic/remote-sensing
 
-# caso 1: regione del fiordo di Hornsund nelle Svalbard
+## caso 1: Nord-Ovest Gronlandia, penisola a nord della Base aerea di Thule (Pituffik)
+
+# importare i dataset
+gren_1973 <- brick("greenland_1973_lrg.jpg") # immagine catturata da Landsat 1, il 3 settembre 1973
+gren_1973 # per visualizzare il dataset
+# greenland_1973_lrg_1, greenland_1973_lrg_2, greenland_1973_lrg_3 
+
+#
+# importare i dataset
+gren_2022 <- brick("greenland_2022_lrg.jpg") # immagine catturata da Landsat 8, il 20 agosto 2022
+gren_2022 #per visualizzare il dataset
+# greenland_2022_lrg_1, greenland_2022_lrg_2, greenland_2022_lrg_3 
+
+# Multiframe formato da un'unica colonna e due righe, la prima con l'immagine riferita al 1973 e la seconda al 2022
+# l'argomento "stretch" serve
+par(mfrow=c(2,1))
+plotRGB(gren_1973, r=1, g=2, b=3, stretch="hist")
+plotRGB(gren_2022, r=1, g=2, b=3, stretch="hist")
+
+dev.off()
+
+# questa funzione crea una lista di file con punti in comune nel nome (lrg)
+grenlist <- list.files(pattern="lrg")
+grenlist
+# questa funzione applica uno stesso comando a una lista di file
+greimp <- lapply(grenlist,raster)
+greimp
+# questa funzione crea un blocco di file raster uniti insieme in un solo file
+grenland_1 <- stack(greimp)
+grenland_1
+
+# plotto il gruppo di file uniti
+levelplot(grenland_1) #funzione del pacchetto "rasterVis"
+# nell'immagine in basso (2022), si nota come l'area rappresentativa delle porzioni ghiacciate sia nettamente inferiore rispetto a quella sopra, di 49 anni prima
+
+# andando ad arricchire il plot, ho aggiunto i seguenti argomenti:
+# "col.regions" per cambiare colore alle immagini; "main" per attribuire un titolo al plot; "names.attr" per rinominare le singole immagini
+clg<-colorRampPalette(c("blue","light blue","pink","red"))(100)  # per impostare la palette di colori
+levelplot(grenland_1,col.regions=clg,main="Perdita di ghiaccio nel nord-ovest della Groenlandia",names.attr=c("Settembre 1973","Agosto 2022"))
+
+#dev.off()
+
+#sottrazione tra il primo dato e il secondo
+melting <- grenland_1$greenland_2022_lrg.jpg - grenland_1$greenland_1973_lrg.jpg   # "grenland_1$" lega i singoli file alla loro posizione nello stack
+
+#plotto l'immagine con la differenza
+clm <- colorRampPalette(c("blue","white","red"))(100) #assegno una scala di colori ai file
+
+levelplot(melt_amount,col.regions=clb)
+
+
+
+
+
+
+
+
+
+
+# caso x: regione del fiordo di Hornsund nelle Svalbard
 
 #importare i dataset
 sval_1990 <- brick("svalbard_1990.jpg") #immagine catturata da Landsat 5, il 20 agosto 1990
