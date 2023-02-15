@@ -83,5 +83,12 @@ sval_2017 <- brick("svalbard_2017.jpg") #immagine catturata da Landsat 8, il 19 
 sval_2017 #per visualizzare il dataset
 # le bande sono 3: svalbard_2017_1, svalbard_2017_2, svalbard_2017_3 
 
+par(mfrow=c(1,2))
+plotRGB(sval_1990, r=1, g=2, b=3, stretch="hist")
+plotRGB(sval_2017, r=1, g=2, b=3, stretch="hist")
 
-sval_pca <- rasterPCA(sval_1990)
+# differenza dei valori tra la prima immagine (gennaio) e l'ultima (marzo)
+difsval <- sval_1990 - sval_2017
+clsval <- colorRampPalette(c('blue','white','red'))(100) # 
+plot(difsval, col=clsval) #plotta la differenza ottenuta con la funzione sopra
+
