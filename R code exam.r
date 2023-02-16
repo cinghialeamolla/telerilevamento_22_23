@@ -1,4 +1,4 @@
-# Qui sotto il codice oggetto di esame
+# Codice esame 17 febbraio 2022
 
 # dati.nc: il formato dei dati copernicus è nc, e per analizzarli occorre istallare alcuni pacchetti su R
 
