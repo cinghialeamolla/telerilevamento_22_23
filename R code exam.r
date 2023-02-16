@@ -130,6 +130,8 @@ g1973 / g2022 #per visualizzare le immagini in multiframe, con il pacchetto "pat
 
 dev.off()
 
+#### TERZA PARTE:
+
 # qui ho fatto la classificazione non supervisionata dell'immagine del 1973
 clasl973 <- unsuperClass(gren_1973, nClasses=2)  # associazione della classificazione dell'immagine del 1972 a un nome
 clasl973 # per visualizzare info sulla classificazione
