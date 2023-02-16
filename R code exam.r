@@ -64,7 +64,7 @@ dev.off()
 
 # questa funzione ("par") serve per visualizzare in un unico plot più oggetti
 # l'argomento "mfrow" indica il numero di righe del "multiframe", in questo caso formato da 1 riga e 2 colonne
-par(mfrow=c(1,2))
+par(mfrow=c(2,1))
 plot(lst_2017, col=cl, main="Temperatura della superficie terrestre 2017") # dataset del 2017
 plot(lst_2020, col=cl, main="Temperatura della superficie terrestre 2020") #dataset del 2020
 # a prima vista non si notano molto le differenze di temperatura tra le due immagini
