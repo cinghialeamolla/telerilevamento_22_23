@@ -190,7 +190,7 @@ percentuali  # per visualizzare la tabella
 p1 < -ggplot(percentuali, aes(x=copertura, y=percentuale_1973, color=copertura)) + geom_bar(stat="identity", fill="white")
 # plot del grafico  del 2022
 p2 <- ggplot(percentuali, aes(x=copertura, y=percentuale_2022, color=copertura)) + geom_bar(stat="identity", fill="white")
-# ho arrangito i due grafici in una pagina unica (con una funzione del pacchetto "gridExtra")
+# ho arrangiato i due grafici in una pagina unica (con una funzione del pacchetto "gridExtra")
 grid.arrange(p1, p2, nrow=2)
 
 
