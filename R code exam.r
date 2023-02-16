@@ -99,7 +99,7 @@ plotRGB(gren_2022, r=1, g=2, b=3, stretch="hist") # immagine di agosto 2022
 
 dev.off()
 
-# questa funzione crea una lista di file, apartire da punti in comune nel nome (in questo caso "lrg")
+# questa funzione crea una lista di file, a partire da punti in comune nel nome (in questo caso "lrg")
 grenlist <- list.files(pattern="lrg") # qui ho importato i due dataset come lista di file
 grenlist # per visualizzare i file della lista
 
@@ -109,7 +109,7 @@ greimp
 
 # questa funzione crea un blocco di file raster uniti insieme in un solo file
 grenland_1 <- stack(greimp)
-grenland_1 # per visualizzare i layer che compongono il "rasterstack"
+grenland_1 # per visualizzare i layer che compongono il "rasterstak"
 
 # plotto il gruppo di file uniti
 levelplot(grenland_1) #funzione del pacchetto "rasterVis"
@@ -123,8 +123,9 @@ levelplot(grenland_1,col.regions=clg,main="Perdita di ghiaccio nel nord-ovest de
 dev.off()
 
 # qui ho creato un multiframe con ggplot2, andando ad utilizzare le due immagini separate (e non lo stack)
-g1973 <- ggRGB(gren_1973, r=1, g=2, b=3, stretch="lin") #plot RGB che usa ggplot2, per l'immagine del 1973
-g2022 <- ggRGB(gren_2022, r=1, g=2, b=3, stretch="lin") #plot RGB che usa ggplot2, per l'immagine del 2022
+# "ggRGB" si usa per creare un immagine singola con le 3 bande (usa ggplot2 e RStoolbox)
+g1973 <- ggRGB(gren_1973, r=1, g=2, b=3, stretch="hist") #plot RGB che usa ggplot2, per l'immagine del 1973
+g2022 <- ggRGB(gren_2022, r=1, g=2, b=3, stretch="hist") #plot RGB che usa ggplot2, per l'immagine del 2022
 g1973 / g2022 #per visualizzare le immagini in multiframe, con il pacchetto "patchwork"
 
 dev.off()
